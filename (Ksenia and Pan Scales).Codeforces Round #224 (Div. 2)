@@ -1,0 +1,85 @@
+#include<iostream>
+#include <algorithm>
+using namespace std;
+void equl(long ss2,string sl,string sr,long i,string s2) {
+	if (ss2 % 2 != 0)
+		cout << "Impossible" << "\n";
+	else {
+		if (ss2 == 0) {
+			cout << sl << "|" << sr;
+		}
+		else {
+			long m = ss2 / 2;
+			while (i < m) {
+				sl += s2[i];
+				i++;
+			}
+			while (i < ss2) {
+				sr += s2[i];
+				i++;
+			}
+			cout << sl << "|" << sr;
+		}
+	}
+}
+int main()
+{
+	string sl, sr, s1, s2; cin >> s1 >> s2;
+	long long ss1 = s1.size();
+	long long ss2 = s2.size();
+	long long st = ss1 + ss2;
+	long long l = 0, r = 0;
+	long i = 0;
+	while (s1[i] != '|') {
+		l++;
+		i++;
+	}
+	long p = l + 1;
+	r = ss1 - p;
+	i = 0;
+	while (i < l) {
+		sl += s1[i];
+		i++;
+	}
+	i++;
+	while (i < ss1) {
+		sr += s1[i];
+		i++;
+	}
+	i = 0;
+	if (l == r) {
+		equl(ss2, sl, sr, i, s2);
+		i = 0;
+	}
+	else if (l < r) {
+		long q = l;
+		while ((l < r) && (ss2 > 0)) {
+			sl += s2[i];
+			l++;
+			i++;
+			ss2--;
+		}
+		i = 0;
+		reverse(s2.begin(), s2.end());
+		if (l == r) {
+			 equl( ss2,  sl,  sr,  i,  s2);
+		}
+		else cout << "Impossible" << "\n";
+	}
+	else {
+		long h = r;
+		while ((l > r) && (ss2 > 0)) {
+			sr += s2[i];
+			r++;
+			i++;
+			ss2--;
+		}
+		i = 0;
+		reverse(s2.begin(), s2.end());
+		if (l == r) {
+			equl(ss2, sl, sr, i, s2);
+		}
+		else cout << "Impossible" << "\n";
+	}
+
+}
